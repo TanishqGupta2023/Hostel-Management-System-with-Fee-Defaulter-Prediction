@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h3>✏️ Edit Complaint</h3>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit" class="btn btn-success mt-2">💾 Update</button>
+        <a href="{% if user.is_staff %}{% url 'admin_dashboard' %}{% else %}{% url 'student_dashboard' %}{% endif %}" class="btn btn-secondary mt-2">Cancel</a>
+    </form>
+</div>
+{% endblock %}

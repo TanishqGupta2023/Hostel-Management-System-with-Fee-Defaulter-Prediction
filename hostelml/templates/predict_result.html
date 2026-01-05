@@ -1,0 +1,13 @@
+<!-- templates/predict_result.html -->
+
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5 text-center">
+    <h2>Prediction Result for {{ student.user.username }}</h2>
+    <div class="alert {% if 'PAY' in result %}alert-success{% else %}alert-danger{% endif %} mt-4">
+        <strong>{{ result }}</strong>
+    </div>
+    <a href="{% url 'predict_fee_defaulter' student.id %}" class="btn btn-primary mt-3">Predict Again</a>
+    <a href="{% url 'admin_dashboard' %}" class="btn btn-secondary mt-2">Back to Dashboard</a>
+</div>
+{% endblock %}

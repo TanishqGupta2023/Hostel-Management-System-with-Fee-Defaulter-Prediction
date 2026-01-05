@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Edit Student</h2>
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="text" name="username" value="{{ student.user.username }}"><br>
+    <input type="email" name="email" value="{{ student.user.email }}"><br>
+    <button type="submit">Save Changes</button>
+</form>
+{% endblock %}

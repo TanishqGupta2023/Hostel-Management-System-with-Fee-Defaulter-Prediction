@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<h4 class="mb-4">💰 Fee Defaulter Prediction & Fee Status Management</h4>
+
+<!-- Predict All Fee Defaulters Button -->
+<div class="text-center mb-4">
+    <a href="{% url 'predict_all_defaulters' %}" class="btn btn-danger btn-lg">🚨 Predict All Fee Defaulters</a>
+</div>
+
+<!-- Student Fee Table -->
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Student ID</th>
+            <th>Username</th>
+            <th>Fee Status</th>
+            <th>Predict Defaulter</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for student in students %}
+        <tr>
+            <td>{{ student.id }}</td>
+            <td>{{ student.user.username }}</td>
+            <td>
+                <a href="{% url 'fee_status' student.id %}" class="btn btn-sm btn-info">Check Fee Status</a>
+            </td>
+            <td>
+                <a href="{% url 'predict_fee_defaulter' student.id %}" class="btn btn-sm btn-warning">Predict</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4" class="text-center">No students found.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

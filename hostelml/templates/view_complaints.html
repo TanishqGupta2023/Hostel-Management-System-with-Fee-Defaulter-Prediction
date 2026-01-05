@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+  <h3 class="mb-4"><span style="font-size: 1.5em;">📬</span> View Complaints</h3>
+
+  {% if complaints %}
+    <div class="list-group">
+      {% for complaint in complaints %}
+        <div class="list-group-item mb-3">
+          <p><strong>Category:</strong> {{ complaint.category }}</p>
+          <p><strong>Description:</strong> {{ complaint.description }}</p>
+          <p><strong>Status:</strong> 
+            {% if complaint.status == "resolved" %}
+              <span class="badge bg-success">{{ complaint.status }}</span>
+            {% else %}
+              <span class="badge bg-warning text-dark">{{ complaint.status }}</span>
+            {% endif %}
+          </p>
+
+          {% if complaint.admin_reply %}
+            <p><strong>Admin Reply:</strong> {{ complaint.admin_reply }}</p>
+          {% else %}
+            <p><em>No reply from admin yet.</em></p>
+          {% endif %}
+
+          {% if user.is_staff %}
+            <a href="{% url 'admin_reply' complaint.id %}" class="btn btn-outline-primary btn-sm">Reply</a>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p>No complaints found.</p>
+  {% endif %}
+</div>
+{% endblock %}

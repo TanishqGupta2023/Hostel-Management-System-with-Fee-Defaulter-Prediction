@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h2>Pay Fees</h2>
+    <p>This is a simulated payment. Click below to complete the process.</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-success">Simulate Payment</button>
+    </form>
+</div>
+{% endblock %}

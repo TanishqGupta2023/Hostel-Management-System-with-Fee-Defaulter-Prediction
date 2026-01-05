@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Fee Receipt</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .receipt-box {
+            border: 1px solid #000;
+            padding: 20px;
+            width: 90%;
+        }
+    </style>
+</head>
+<body>
+    <div class="receipt-box">
+        <h2>Hostel Fee Receipt</h2>
+        <p><strong>Student:</strong> {{ student.user.username }}</p>
+        <p><strong>Room Number:</strong> {{ room.room_number }}</p>
+        <p><strong>Payment Status:</strong> {{ student.payment_status }}</p>
+        <hr>
+        <p>Thank you for your payment.</p>
+    </div>
+</body>
+</html>

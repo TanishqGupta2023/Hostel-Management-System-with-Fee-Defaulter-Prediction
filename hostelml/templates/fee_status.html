@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Fee Status</h2>
+
+  <p><strong>Total Fee:</strong> ₹{{ total_fee }}</p>
+  <p><strong>Total Paid:</strong> ₹{{ total_paid }}</p>
+  <p><strong>Pending Amount:</strong> ₹{{ pending }}</p>
+  <p><strong>Next Due Date:</strong> {{ next_due_date }}</p>
+
+  <h3>Payment History</h3>
+  <ul>
+    {% for payment in payments %}
+      <li>₹{{ payment.amount }} on {{ payment.date }}</li>
+    {% empty %}
+      <li>No payments yet.</li>
+    {% endfor %}
+  </ul>
+
+  {% if pending > 0 %}
+    <form method="post" action="{% url 'pay_fee' %}">
+      {% csrf_token %}
+      <button type="submit">Pay Now</button>
+    </form>
+  {% else %}
+    <p>All fees paid.</p>
+  {% endif %}
+{% endblock %}

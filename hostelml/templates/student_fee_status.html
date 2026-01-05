@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-3">Your Fee Status</h2>
+    <div class="card p-3 shadow-sm">
+        <h5><strong>Name:</strong> {{ student.full_name }}</h5>
+        <h5><strong>Email:</strong> {{ student.email }}</h5>
+        <h5><strong>Status:</strong>
+            {% if student.has_paid_fees %}
+                <span class="text-success">Paid</span>
+            {% else %}
+                <span class="text-danger">Not Paid</span>
+            {% endif %}
+        </h5>
+
+        <div class="mt-3">
+            {% if student.has_paid_fees and student.fee_receipt %}
+                <a href="{{ student.fee_receipt.url }}" class="btn btn-success" download>Download Fee Receipt</a>
+            {% else %}
+                <form method="post" action="{% url 'pay_fee' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary">Pay Fee</button>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

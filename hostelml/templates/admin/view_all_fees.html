@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h2>All Students Fee Status</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Room No</th>
+                <th>Fee Status</th>
+                <th>Receipt</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in fee_data %}
+            <tr>
+                <td>{{ item.student.user.get_full_name }}</td>
+                <td>{{ item.student.room_number }}</td>
+                <td>{{ item.fee_paid|yesno:"Paid,Pending" }}</td>
+                <td>
+                    {% if item.receipt %}
+                        <a href="{{ item.receipt }}" target="_blank">View</a>
+                    {% else %}
+                        N/A
+                    {% endif %}
+                </td>
+                <td>
+                    {% if not item.fee_paid %}
+                        <a href="{% url 'send_fee_reminder' item.student.id %}" class="btn btn-warning btn-sm">Send Reminder</a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

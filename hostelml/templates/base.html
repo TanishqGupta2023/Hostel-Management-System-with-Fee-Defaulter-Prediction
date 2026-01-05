@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Smart Hostel System{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+ <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        html, body {
+        height: 100%;
+        margin: 0;
+        background-color: #f5f7fa; /* Background */
+        color: #212529; /* Default text color (dark gray) */
+    }
+
+    a {
+        color: #0d6efd; /* Bootstrap primary blue */
+        text-decoration: none;
+    }
+
+    a:hover {
+        color: #084298;
+        text-decoration: underline;
+    }
+
+  
+    .navbar-dark .navbar-nav .nav-link {
+        color: #ffffff;
+        transition: color 0.3s;
+    }
+
+    .navbar-dark .navbar-nav .nav-link:hover {
+        color: #f0ad4e; 
+    }
+
+    footer a {
+        color: #ffffff;
+    }
+
+    footer a:hover {
+        color: #f0ad4e;
+        text-decoration: underline;
+    }
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #f0f2f5;
+        }
+        main {
+            flex: 1;
+        }
+         .navbar, .footer {
+            background-color: #1d1f21 !important; 
+        }
+    </style>
+    {% block extra_head %}{% endblock %}
+</head>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'dashboard' %}">🏠 SmartHostel</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav">
+        {% if user.is_authenticated %}
+        
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
+          </li>
+
+          {% if user.is_staff %}
+          <!-- Admin-only menu -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">💳 Fee Status</a>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item" href="{% url 'admin_view_fees' %}">💳 View Fee</a></li>
+              <li><a class="dropdown-item" href="{% url 'predict_fee_defaulter_list' %}">🎯 Predict Defaulter</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">👥 Students</a>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item" href="{% url 'view_students' %}">📋 Manage Students</a></li>
+              <li><a class="dropdown-item" href="{% url 'add_student' %}">➕ Add Student</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">🚪 Rooms</a>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item" href="{% url 'view_rooms' %}">📋 Manage Rooms</a></li>
+              <li><a class="dropdown-item" href="{% url 'add_room' %}">➕ Add Room</a></li>
+              <li><a class="dropdown-item" href="{% url 'auto_assign_rooms' %}">⚙️ Auto Assign</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'view_complaints' %}">🛠 Complaints</a>
+          </li>
+
+          {% else %}
+
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'submit_complaint' %}">➕ Submit Complaint</a>
+          </li>
+          {% endif %}
+
+          <!-- Logout -->
+          <li class="nav-item">
+            <a class="nav-link text-danger" href="{% url 'logout' %}">🚪 Logout</a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'index' %}">🏠 Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'login' %}">🔐 Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'register' %}">📝 Register</a>
+          </li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<main class="container mt-4">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    {% block content %}{% endblock %}
+</main>
+
+    <footer class="bg-dark text-white text-center py-3 mt-auto">
+        &copy; 2025 Smart Hostel | Developed by Tanishq Gupta
+    </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

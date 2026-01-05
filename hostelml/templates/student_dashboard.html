@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <div class="text-center my-5">
+  <h2 class="fw-bold display-5 text-primary">
+    👋 Welcome back, {{ request.user.first_name|default:request.user.username }}!
+  </h2>
+</div>
+
+    <div class="card mt-4 shadow-sm">
+        <div class="card-header bg-info text-white">Student Information</div>
+        <div class="card-body">
+            <p><strong>Name:</strong> {{ request.user}}</p>
+            <p><strong>Email:</strong> {{ request.user.email }}</p>
+            <p><strong>Contact:</strong> {{ student.contact_number }}</p>
+            <p><strong>Department:</strong> {{ student.department }}</p>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">Room Info</div>
+                <div class="card-body">
+                    {% if room %}
+                        <p><strong>Room Number:</strong> {{ room.room_number }}</p>
+                    {% else %}
+                        <p class="text-muted">No room assigned.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Fee Status -->
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-success text-white">Fee Status</div>
+                <div class="card-body">
+                    <p><strong>Status:</strong>
+                        {% if student.has_paid_fees %}
+                            <span class="text-success">Paid</span>
+                        {% else %}
+                            <span class="text-danger">Unpaid</span>
+                        {% endif %}
+                    </p>
+
+                    {% if not student.has_paid_fees %}
+                        <form action="{% url 'mock_pay' %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-success">💳 Pay Now</button>
+                        </form>
+                    {% else %}
+                        <a href="{% url 'download_receipt' %}" class="btn btn-outline-primary">📄 Download Receipt</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if not student.has_paid_fees %}
+        <div class="alert alert-warning mt-3">
+            ⚠️ Your hostel fee is unpaid or you are predicted to default. Please pay your fees as soon as possible.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

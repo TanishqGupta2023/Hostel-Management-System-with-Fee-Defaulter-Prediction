@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+<form method="POST">
+  {% csrf_token %}
+  <p><strong>Student:</strong> {{ student.user.username }} (ID: {{ student.id }})</p>
+
+  <label>Year:</label>
+  <input type="text" name="year" value="{{ student.year }}" class="form-control" readonly>
+
+  <label>Attendance %:</label>
+  <input type="text" name="attendance" value="{{ student.attendance_percent }}" class="form-control">
+
+  <label>Internal Score:</label>
+  <input type="text" name="internal_score" value="{{ student.internal_score }}" class="form-control">
+
+  <label>Parent Income (₹):</label>
+  <input type="text" name="parent_income" value="{{ student.parent_income }}" class="form-control">
+
+  <label>Scholarship:</label>
+  <select name="scholarship" class="form-control">
+    <option value="1" {% if student.scholarship %}selected{% endif %}>Yes</option>
+    <option value="0" {% if not student.scholarship %}selected{% endif %}>No</option>
+  </select>
+
+  <button type="submit" class="btn btn-success mt-3">Predict</button>
+</form>
+{% endblock %}

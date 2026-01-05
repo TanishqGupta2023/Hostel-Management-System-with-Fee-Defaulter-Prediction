@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>All Complaints</h2>
+<ul>
+    {% for complaint in complaints %}
+    <li>{{ complaint.student.user.username }} - {{ complaint.category }} - {{ complaint.status }}
+        <a href="{% url 'update_complaint_status' complaint.id %}">Update</a> |
+        <a href="{% url 'admin_reply_view' complaint.id %}">Reply</a>
+    </li>
+    {% endfor %}
+</ul>
+{% for complaint in complaints %}
+<tr>
+  <td>{{ complaint.student.user.username }}</td>
+  <td>{{ complaint.category }}</td>
+  <td>{{ complaint.status }}</td>
+  <td>
+    <a href="{% url 'admin_reply' complaint.id %}" class="btn btn-sm btn-primary">Reply</a>
+  </td>
+</tr>
+{% endfor %}
+{% endblock %}

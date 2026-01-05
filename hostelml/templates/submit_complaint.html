@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+  <h3>📝 Submit Complaint</h3>
+  <form method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label class="form-label">Category</label>
+      <input type="text" name="category" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Description</label>
+      <textarea name="description" class="form-control" rows="3" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">📨 Submit</button>
+  </form>
+
+  <hr>
+
+  <h4 class="mt-4">📂 Recent Complaints</h4>
+
+  {% if complaints %}
+    {% for complaint in complaints %}
+    <div class="card mb-3">
+      <div class="card-body">
+        <h5 class="card-title">{{ complaint.category }}</h5>
+        <p class="card-text">{{ complaint.description }}</p>
+        <p class="card-text"><strong>Status:</strong> {{ complaint.status }}</p>
+        
+        {% if complaint.admin_reply %}
+          <p class="card-text"><strong>Admin Reply:</strong> {{ complaint.admin_reply }}</p>
+        {% else %}
+          <p class="text-muted"><em>No reply from admin yet.</em></p>
+        {% endif %}
+
+        {% if complaint.student.user == request.user %}
+          <a href="{% url 'edit_complaint' complaint.id %}" class="btn btn-sm btn-outline-primary">✏️ Edit</a>
+          <a href="{% url 'delete_complaint' complaint.id %}" class="btn btn-sm btn-outline-danger">🗑️ Delete</a>
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  {% else %}
+    <p class="text-muted">📭 No complaints submitted yet.</p>
+  {% endif %}
+</div>
+{% endblock %}

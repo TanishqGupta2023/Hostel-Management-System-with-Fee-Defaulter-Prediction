@@ -1,0 +1,38 @@
+<!-- templates/admin/admin_fee_overview.html -->
+
+{% extends 'base.html' %}
+{% block content %}
+  <div class="container mt-5">
+    <h2 class="mb-4">All Students Fee Status</h2>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Fee Paid</th>
+          <th>Receipt</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for student in students %}
+          <tr>
+            <td>{{ student.name }}</td>
+            <td>{{ student.user.email }}</td>
+            <td>
+              {% if student.has_paid_fee %}
+                <span class="text-success">Paid</span>
+              {% else %}
+                <span class="text-danger">Not Paid</span>
+              {% endif %}
+            </td>
+            <td>
+              {% if student.receipt_pdf %}
+                <a href="{{ student.receipt_pdf.url }}" download>Download</a>
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Register{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        background-image: url("{% static 'hostel.jpg' %}");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        min-height: 100vh;
+        color: white;
+    }
+
+    .register-container {
+        padding: 2rem;
+        border-radius: 20px;
+        backdrop-filter: blur(4px);
+        background-color: rgba(0, 0, 0, 0.4); /* translucent dark box */
+        color: white;
+        max-width: 450px;
+        width: 100%;
+    }
+
+    .form-label {
+        color: white;
+    }
+
+    .register-title {
+        text-align: center;
+        margin-bottom: 1.5rem;
+        font-weight: bold;
+        color: #fff;
+    }
+
+    .text-center a {
+        color: #f0f0f0;
+    }
+
+    .text-center a:hover {
+        text-decoration: underline;
+    }
+
+    input::placeholder {
+        color: #ccc;
+    }
+</style>
+
+<div class="container d-flex justify-content-center">
+    <div class="register-container mt-5 mb-5">
+        <h3 class="register-title">📝 Register</h3>
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" name="username" id="username" class="form-control" required placeholder="Enter your username">
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" name="email" id="email" class="form-control" required placeholder="Enter your email">
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" name="password" id="password" class="form-control" required placeholder="Enter your password">
+            </div>
+            <input type="hidden" name="role" value="student">
+            <div class="d-grid">
+                <button type="submit" class="btn btn-light text-dark">Register</button>
+            </div>
+        </form>
+        <p class="text-center mt-3">
+            Already have an account? <a href="{% url 'login' %}">Login here</a>
+        </p>
+    </div>
+</div>
+{% endblock %}

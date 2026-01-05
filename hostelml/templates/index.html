@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Welcome | Smart Hostel{% endblock %}
+{% block content %}
+<style>
+    body {
+        background-image: url("{% static 'hostel.jpg' %}");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+    }
+
+    .welcome-section {
+        padding-top: 80px;
+        padding-bottom: 40px;
+        text-align: center;
+    }
+
+    h1.display-4, p.lead {
+        color: white;
+        text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+    }
+
+    h1.display-4 {
+        font-weight: bold;
+        font-size: 3rem;
+    }
+
+    p.lead {
+        font-size: 1.25rem;
+        font-weight: 500;
+    }
+
+    .card {
+        background-color: rgba(0, 0, 0, 0.5);
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease;
+        color: white;
+    }
+
+    .card:hover {
+        transform: scale(1.05);
+    }
+</style>
+
+<!-- Welcome Section -->
+<div class="welcome-section">
+    <h1 class="display-4">🏠 Smart Hostel</h1>
+    <p class="lead">Effortlessly manage student registrations, room assignments, complaints, and fee tracking all in one place.</p>
+</div>
+
+<!-- Cards Section -->
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-4 mb-4">
+            <div class="card p-3">
+                <h5>📋 Student Management</h5>
+                <p>Register students, view profiles, and track hostelers easily.</p>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card p-3">
+                <h5>🏠 Room Allocation</h5>
+                <p>Assign and manage hostel rooms efficiently with tracking and availability.</p>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card p-3">
+                <h5>🛠 Complaint System</h5>
+                <p>Submit, track, and resolve student complaints with status updates.</p>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card p-3">
+                <h5>💰 Fee Management</h5>
+                <p>Check fee status, generate receipts, and predict defaulters using ML.</p>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card p-3">
+                <h5>📊 Admin Dashboard</h5>
+                <p>View and control student data, complaints, fees, and room info from a central panel.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

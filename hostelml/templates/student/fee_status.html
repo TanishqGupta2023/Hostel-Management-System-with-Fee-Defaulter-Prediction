@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h2>Fee Payment Status</h2>
+    <p>Status: <strong>{{ fee_paid|yesno:"Paid,Pending" }}</strong></p>
+    {% if not fee_paid %}
+        <a href="{% url 'pay_fee' %}" class="btn btn-primary mt-2">Pay Now</a>
+    {% else %}
+        <a href="{% url 'download_receipt' %}" class="btn btn-success mt-2">Download Receipt</a>
+    {% endif %}
+</div>
+{% endblock %}

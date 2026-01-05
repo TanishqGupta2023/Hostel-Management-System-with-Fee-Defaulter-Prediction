@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Room List</h2>
+    <a href="{% url 'add_room' %}" class="btn btn-primary mb-3">Add Room</a>
+
+    <div class="row">
+        {% for room in rooms %}
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm border-primary">
+                <div class="card-body">
+                    <h5 class="card-title">Room {{ room.room_number }}</h5>
+                    <p class="card-text">
+                        <strong>Capacity:</strong> {{ room.capacity }}<br>
+                        <strong>Full:</strong> {{ room.is_full }}
+                    </p>
+                    <a href="{% url 'edit_room' room.id %}" class="btn btn-sm btn-outline-warning">Edit</a>
+                    <a href="{% url 'delete_room' room.id %}" class="btn btn-sm btn-outline-danger">Delete</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

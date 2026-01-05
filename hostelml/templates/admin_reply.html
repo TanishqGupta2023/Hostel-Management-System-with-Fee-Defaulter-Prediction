@@ -1,0 +1,17 @@
+<!-- templates/admin_reply.html -->
+{% extends 'base.html' %}
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="id_admin_reply" class="form-label">Admin Reply</label>
+        {{ form.admin_reply }}
+    </div>
+    <div class="mb-3">
+        <label for="id_status" class="form-label">Complaint Status</label>
+        {{ form.status }}
+    </div>
+    <button type="submit" class="btn btn-success">Submit Reply</button>
+</form>
+
+{% endblock %}

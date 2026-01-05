@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <h3>🚨 Predicted Fee Defaulters</h3>
+    {% if defaulters %}
+    <ul class="list-group">
+        {% for student in defaulters %}
+        <li class="list-group-item">
+            {{ student.user.username }} (ID: {{ student.id }})
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No defaulters predicted.</p>
+    {% endif %}
+    <a href="{% url 'admin_fee_management' %}" class="btn btn-primary mt-3">← Back to Fee Management</a>
+</div>
+{% endblock %}
