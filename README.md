@@ -57,20 +57,20 @@ A Django-based Hostel Management System integrated with a Machine Learning model
 
 📊 Results
 
-Efficient hostel management through centralized admin control
+• Efficient hostel management through centralized admin control
 
-ML-based prediction helps identify high-risk fee defaulters early
+• ML-based prediction helps identify high-risk fee defaulters early
 
-Reduced manual workload for administrators
+• Reduced manual workload for administrators
 
 📌 Future Enhancements
 
-Email/SMS notification system
+• Email/SMS notification system
 
-Online payment gateway integration
+• Online payment gateway integration
 
-Enhanced ML prediction features
-
+• Enhanced ML prediction features
+ 
 👤 Author
 
 Tanishq Gupta
